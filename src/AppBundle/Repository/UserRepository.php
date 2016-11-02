@@ -16,4 +16,18 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         return $this->findBy([], ['id' => 'asc'], 10, 0);
     }
 
+    public function getFirstTen()
+    {
+//        return $this->getEntityManager()
+//            ->createQuery("SELECT u FROM AppBundle\Entity\User u ORDER BY u.id ASC")
+//            ->setMaxResults(10)
+//            ->getResult();
+
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'asc')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 }
